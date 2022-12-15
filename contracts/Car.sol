@@ -78,7 +78,7 @@ contract Car {
     function addDatesBooked(uint256 id , string[] memory newBookings) public payable {
         require(id <counter , "NO SUCH RENTAL");
         require(checkBookings(id , newBookings),"Already BOOKED");
-        require(msg.value == (rentals[id].price * 1 ether * newBookings.length ), "Please Pay The Correct Amount");
+        require(msg.value == (rentals[id].price  ), "Please Pay The Correct Amount");
 
         for(uint i=0 ; i <newBookings.length ; i++){
             rentals[id].dates.push(newBookings[i]);
