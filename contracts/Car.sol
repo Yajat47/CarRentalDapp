@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
+
 contract Car {
     address public RentalOwner;
     uint256 private counter;
@@ -39,6 +40,10 @@ contract Car {
     mapping(uint256 => rentalInst) rentals;
     uint256[] public rentalIds;
 
+    function getAllRentalsValue() public view returns ( uint256   ) {
+        return counter;
+    }
+
     function addRentals(
         string memory carname,
         string memory carnum,
@@ -48,7 +53,7 @@ contract Car {
         address renter , 
         uint256 price
     ) public {
-        require(msg.sender == RentalOwner , "Only OWner can post rentals");
+       // require(msg.sender == RentalOwner , "Only OWner can post rentals");
         rentalInst storage newRent = rentals[counter];
         newRent.carname = carname;
         newRent.carnum = carnum;
@@ -90,12 +95,15 @@ contract Car {
 
     }
 
-    function getRental(uint256 id ) public view returns (string memory , uint256 , string[] memory){
+    function getRental(uint256 id ) public view returns (string memory , uint256 , string[] memory , uint256 , string memory)
+    {
         require(id <counter,"NO Such Rentals");
 
         rentalInst storage s = rentals[id];
-        return (s.carname , s.price , s.dates);
+        return (s.carname , s.price , s.dates , s.id , s.imgUrl);
     }
+
+    
 
 
 
